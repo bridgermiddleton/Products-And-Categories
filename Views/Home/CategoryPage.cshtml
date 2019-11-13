@@ -1,0 +1,29 @@
+@model CategoryAndProductsViewModel;
+<div class="container">
+        <a class="float-right" href="/categories">Home</a>
+        <h1 style="margin-bottom: 40px;" class="display-2 text-center">@Model.TheCategory.Name</h1>
+        <div class="row">
+            <div class="col">
+                <h3>Products:</h3>
+                <ul>
+                    @foreach(Association association in Model.TheCategory.Products)
+                    {
+                        <li>@association.Product.Name</li>
+                    }
+                </ul>
+            </div>
+            <div class="col">
+                <h4>Add Product:</h4>
+                <form class="form-group" asp-action="AddProduct" asp-controller="Home" method="POST">
+                    <input class="form-control" asp-for="NewAssociation.CategoryId" type="hidden" value="@Model.TheCategory.CategoryId">
+                    <select class="form-control" asp-for="NewAssociation.ProductId">
+                        @foreach (Product product in Model.NonassociatedProducts)
+                        {
+                            <option value="@product.ProductId">@product.Name</option>
+                        }
+                    </select>
+                    <button style="margin-top: 20px;" class="btn btn-primary" type="submit">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>

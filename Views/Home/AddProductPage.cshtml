@@ -1,0 +1,31 @@
+@model ProductViewModel;
+<div class="container">
+    <div class="text-center">
+        <h2 style="margin-right: 10px;" class="d-inline">Products</h2>
+        <h2 class="d-inline"><a href="/categories">Categories</a></h2>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h4 class="text-center">New Product</h4>
+            <form class="form-group" asp-action="NewProduct" asp-controller="Home" method="POST">
+                <span asp-validation-for="NewProduct.Name"></span>
+                Name<input class="form-control" asp-for="NewProduct.Name">
+                <span asp-validation-for="NewProduct.Description"></span>
+                Description <textarea class="form-control" asp-for="NewProduct.Description"></textarea>
+                <span asp-validation-for="NewProduct.Price"></span>
+                Price<input class="form-control" asp-for="NewProduct.Price">
+                <button style="margin-top: 20px;" class="btn btn-success" type="submit">Create</button>
+            </form>
+        </div>
+        <div class="col">
+            <h4 class="text-center">Existing Products</h4>
+            <ul>
+                @foreach (Product product in Model.AllProducts)
+                {
+                    <li><a href="/products/@product.ProductId">@product.Name</a></li>
+                }
+
+            </ul>
+        </div>
+    </div>
+</div>
