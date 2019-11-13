@@ -12,18 +12,28 @@
                 }
             </ul>
         </div>
-        <div class="col">
-            <h4>Add Category:</h4>
-            <form class="form-group" asp-action="AddCategory" asp-controller="Home" method="POST">
-                <input class="form-control" asp-for="NewAssociation.ProductId" type="hidden" value="@Model.TheProduct.ProductId">
-                <select class="form-control" asp-for="NewAssociation.CategoryId">
-                    @foreach (Category category in Model.NonAssociatedCategories)
-                    {
-                        <option value="@category.CategoryId">@category.Name</option>
-                    }
-                </select>
-                <button style="margin-top: 20px;" class="btn btn-primary" type="submit">Add</button>
-            </form>
-        </div>
+        @{
+            if (Model.NonAssociatedCategories.Count != 0)
+            {
+            <div class="col">
+                <h4>Add Category:</h4>
+                <form class="form-group" asp-action="AddCategory" asp-controller="Home" method="POST">
+                    <input class="form-control" asp-for="NewAssociation.ProductId" type="hidden" value="@Model.TheProduct.ProductId">
+                    <select class="form-control" asp-for="NewAssociation.CategoryId">
+                        @foreach (Category category in Model.NonAssociatedCategories)
+                        {
+                            <option value="@category.CategoryId">@category.Name</option>
+                        }
+                    </select>
+                    <button style="margin-top: 20px;" class="btn btn-primary" type="submit">Add</button>
+                </form>
+            </div>
+            }
+            else
+            {
+                <h4>No more categories to add :(</h4>
+            }
+        }
+        
     </div>
 </div>

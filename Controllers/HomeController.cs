@@ -78,8 +78,6 @@ namespace ProductsAndCategories.Controllers
         [HttpPost]
         public IActionResult AddCategory(ProductAndCategoriesViewModel modelData)
         {
-            if (ModelState.IsValid)
-            {
                 Association newAssociation = modelData.NewAssociation;
                 Console.WriteLine("**********************HELLO**************************");
                 Console.WriteLine(ModelState.ErrorCount);
@@ -91,9 +89,6 @@ namespace ProductsAndCategories.Controllers
 
 
                 return RedirectToAction("ProductPage", new { productid = newAssociation.ProductId }); 
-            }
-        
-        return View("ProductPage",modelData);
             
         }
         [HttpGet("categories/{categoryid}")]
@@ -109,14 +104,10 @@ namespace ProductsAndCategories.Controllers
         [HttpPost]
         public IActionResult AddProduct(CategoryAndProductsViewModel modelData)
         {
-            if (ModelState.IsValid)
-            {
                 Association newAssociation = modelData.NewAssociation;
                 dbContext.Add(newAssociation);
                 dbContext.SaveChanges();
                 return RedirectToAction("CategoryPage", new {categoryid = newAssociation.CategoryId}); 
-            }
-            return View("CategoryPage", modelData);
         }
         public IActionResult Index()
         {

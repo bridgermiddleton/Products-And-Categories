@@ -12,18 +12,29 @@
                     }
                 </ul>
             </div>
-            <div class="col">
-                <h4>Add Product:</h4>
-                <form class="form-group" asp-action="AddProduct" asp-controller="Home" method="POST">
-                    <input class="form-control" asp-for="NewAssociation.CategoryId" type="hidden" value="@Model.TheCategory.CategoryId">
-                    <select class="form-control" asp-for="NewAssociation.ProductId">
-                        @foreach (Product product in Model.NonassociatedProducts)
-                        {
-                            <option value="@product.ProductId">@product.Name</option>
+                        @{
+                            if(Model.NonassociatedProducts.Count != 0)
+                            {
+                                <div class="col">
+                                    <h4>Add Product:</h4>
+                                    <form class="form-group" asp-action="AddProduct" asp-controller="Home" method="POST">
+                                        <input class="form-control" asp-for="NewAssociation.CategoryId" type="hidden" value="@Model.TheCategory.CategoryId">
+                                        <select class="form-control" asp-for="NewAssociation.ProductId">
+                                        @foreach (Product product in Model.NonassociatedProducts)
+                                        {
+                                            <option value="@product.ProductId">@product.Name</option>
+                                        }
+                                        </select>  
+                                    <button style="margin-top: 20px;" class="btn btn-primary" type="submit">Add</button>
+                                </form> 
+                            </div>
+                            }
+                            else
+                            {
+                                <div class="col">
+                                    <h4>No more products to add :(</h4>
+                                </div>
+                            }
                         }
-                    </select>
-                    <button style="margin-top: 20px;" class="btn btn-primary" type="submit">Add</button>
-                </form>
-            </div>
         </div>
     </div>
